@@ -64,9 +64,9 @@ export async function getStaticPaths() {
   const respuesta = await fetch(`${process.env.API_URL}/guitarras`);
   const { data } = await respuesta.json();
 
-  const paths = data.map((guitarra) => ({
+  const paths = data?.map((guitarra) => ({
     params: {
-      url: guitarra.attributes.url,
+      url: guitarra.attributes.url.toString(),
     },
   }));
   return {
@@ -74,6 +74,7 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+  
 
 export async function getStaticProps({ params: { url } }) {
   const respuesta = await fetch(
