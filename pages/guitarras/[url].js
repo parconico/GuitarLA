@@ -5,7 +5,7 @@ import Layout from "../../components/layout";
 
 export default function Producto({ guitarra, agregarCarrito }) {
   const [cantidad, setCantidad] = useState(0);
-  const { nombre, descripcion, imagen, precio } = guitarra[0].attributes;
+  const { nombre, descripcion, imagen, precio } = guitarra[0]?.attributes;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ export default function Producto({ guitarra, agregarCarrito }) {
     }
     //Construir un objeto
     const guitarraSeleccionada = { 
-      id: guitarra[0].id,
+      id: guitarra[0]?.id,
       imagen: imagen.data.attributes.url,
       nombre,
       precio,
@@ -60,40 +60,40 @@ export default function Producto({ guitarra, agregarCarrito }) {
   );
 }
 
-export async function getStaticPaths() {
-  const respuesta = await fetch(`${process.env.API_URL}/guitarras`);
-  const { data } = await respuesta.json();
+// export async function getStaticPaths() {
+//   const respuesta = await fetch(`${process.env.API_URL}/guitarras`);
+//   const { data } = await respuesta.json();
 
-  const paths = data?.map((guitarra) => ({
-    params: {
-      url: guitarra.attributes.url.toString(),
-    },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   const paths = data?.map((guitarra) => ({
+//     params: {
+//       url: guitarra.attributes.url,
+//     },
+//   }));
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
   
 
-export async function getStaticProps({ params: { url } }) {
-  const respuesta = await fetch(
-    `${process.env.API_URL}/guitarras?filters[url]=${url}&populate=imagen`
-  );
-  const { data: guitarra } = await respuesta.json();
-  return {
-    props: {
-      guitarra,
-    },
-  };
-}
-
-// export async function getServerSideProps({query:{url}}){
-//     const respuesta = await fetch(`${process.env.API_URL}/guitarras?filters[url]=${url}&populate=imagen`)
-//     const {data: guitarra} = await respuesta.json()
-//     return{
-//         props:{
-//             guitarra
-//         }
-//     }
+// export async function getStaticProps({ params: { url } }) {
+//   const respuesta = await fetch(
+//     `${process.env.API_URL}/guitarras?filters[url]=${url}&populate=imagen`
+//   );
+//   const { data: guitarra } = await respuesta.json();
+//   return {
+//     props: {
+//       guitarra,
+//     },
+//   };
 // }
+
+export async function getServerSideProps({query:{url}}){
+    const respuesta = await fetch(`${process.env.API_URL}/guitarras?filters[url]=${url}&populate=imagen`)
+    const {data: guitarra} = await respuesta.json()
+    return{
+        props:{
+            guitarra
+        }
+    }
+}
