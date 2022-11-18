@@ -36,9 +36,9 @@ export default function Home({ guitarras, posts, curso }) {
 }
 
 export async function getStaticProps() {
-  const urlGuitarras = `${process.env.API_URL}/guitarras?populate=imagen`;
-  const urlPosts = `${process.env.API_URL}/posts?populate=imagen`;
-  const urlCurso = `${process.env.API_URL}/curso?populate=imagen`;
+  const urlGuitarras = `${process.env.NEXT_API_URL}/guitarras?populate=imagen`;
+  const urlPosts = `${process.env.NEXT_API_URL}/posts?populate=imagen`;
+  const urlCurso = `${process.env.NEXT_API_URL}/curso?populate=imagen`;
 
   const [resGuitarras, resPosts, resCurso] = await Promise.all([
     fetch(urlGuitarras),

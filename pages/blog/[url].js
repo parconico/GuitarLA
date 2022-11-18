@@ -26,7 +26,7 @@ export default function Post({ post }) {
 
 export async function getServerSideProps({ query: { url } }) {
   const respuesta = await fetch(
-    `${process.env.API_URL}/posts?filters[url]=${url}&populate=imagen`
+    `${process.env.NEXT_API_URL}/posts?filters[url]=${url}&populate=imagen`
   );
   const { data: post } = await respuesta.json();
 
