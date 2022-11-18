@@ -75,7 +75,6 @@ export default function Producto({ guitarra, agregarCarrito }) {
 //   };
 // }
   
-
 // export async function getStaticProps({ params: { url } }) {
 //   const respuesta = await fetch(
 //     `${process.env.NEXT_API_URL}/guitarras?filters[url]=${url}&populate=imagen`
